@@ -1,6 +1,11 @@
 from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
+import os 
+from dotenv import load_dotenv
+
+load_dotenv()
+database_url = os.getenv("DATABASE_URL")
 
 app = Flask(__name__)
 
@@ -21,7 +26,7 @@ def protected(f):
         return f(*args, **kwargs)
     return decorated
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://humayanalrosid3:cN73MfojstYm@ep-broken-mountain-97799765.ap-southeast-1.aws.neon.tech/member"
+app.config["SQLALCHEMY_DATABASE_URI"] = database_url
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)

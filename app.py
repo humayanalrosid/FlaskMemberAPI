@@ -38,7 +38,7 @@ class Member(db.Model):
     level = db.Column(db.String(100), nullable=False)
     
     def __repr__(self):
-        return f"Member(name={self.name}, age={self.age}, level={self.level})"
+        return f"Member(name={self.name}, level={self.level})"
 
 with app.app_context():
     db.create_all()

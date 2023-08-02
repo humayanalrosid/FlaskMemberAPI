@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from functools import wraps
 
@@ -43,6 +43,9 @@ with app.app_context():
 @protected
 def get_members():
     members = Member.query.all()
+    if not members:
+        abort(404, "Member not found.")
+        
     sorted_members = sorted(members, key=lambda member: member.id)
     
     results = [
